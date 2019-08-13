@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="apuestasApp" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/header :: header">
+</head>
+<body ng-controller="premioController">
+	<div th:include="fragments/navigation :: navigation"></div>
+
+
+
+	<div class="container" data-ng-init="onloadFun()">
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Consulta de Premios</h3>
+			</div>
+			<div class="panel-body">
+				<button type="button" class="btn btn-default" data-toggle="modal"
+					ng-click="createDialog()">Consultar Premio (Store Procedure):</button>
+
+				<div class="col-sm-7">
+					<input type="text" class="form-control" id="inputNrocolilla"
+						placeholder="Numero Colilla"
+						ng-model="colilla" />
+				</div>
+
+			</div>
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>ID Premio</th>
+							<th>Numero Colilla</th>
+							<th>ID Sorteo</th>
+							<th>Valor a pagar</th>
+							<th>Estado</th>
+							<th>Fecha Estado</th>							
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="p in premios">
+							<td>{{ p.idpremio }}</td>
+							<td>{{ p.nrocolilla }}</td>
+							<td>{{ p.idsorteo }}</td>
+							<td>{{ p.valorpagar }}</td>
+							<td>{{ p.estado }}</td>
+							<td>{{ p.fechaestado }}</td>							
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="panel-footer"></div>
+		</div>
+
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="formModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">{{accion}}</h4>
+				</div>
+				<div class="modal-body">
+
+					<form class="form-horizontal"
+						ng-submit="adicionar(PremioSeleccionado)">
+						<input type="hidden" class="form-control" id="hiddenConsecutivo"
+							ng-model="PremioSeleccionado.idpremio" />
+						<div class="form-group">
+							<label for="inputIdpremio" class="col-sm-4 control-label">ID
+								Premio</label>
+							<div class="col-sm-7">
+								<input type="text" class="form-control" id="inputIdpremio"
+									placeholder="ID Sorteo" ng-model="PremioSeleccionado.idpremio" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputNrocolilla" class="col-sm-4 control-label">Numero
+								Colilla</label>
+							<div class="col-sm-7">
+								<input type="text" class="form-control" id="inputNrocolilla"
+									placeholder="Numero Colilla"
+									ng-model="PremioSeleccionado.nrocolilla" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputIdSorteo" class="col-sm-4 control-label">ID
+								Sorteo</label>
+							<div class="col-sm-7">
+								<input type="text" class="form-control" id="inputIdSorteo"
+									placeholder="ID Sorteo" ng-model="PremioSeleccionado.idsorteo" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputValorPagar" class="col-sm-4 control-label">Valor
+								Pagar</label>
+							<div class="col-sm-7">
+								<input type="text" class="form-control" id="inputValorpagar"
+									placeholder="Valor Pagar"
+									ng-model="PremioSeleccionado.valorpagar" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputEstado" class="col-sm-4 control-label">Estado</label>
+							<div class="col-sm-7">
+								<input type="text" class="form-control" id="inputEstado"
+									placeholder="Estado" ng-model="PremioSeleccionado.estado" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputFechaestado" class="col-sm-4 control-label">Fecha
+								Estado</label>
+							<div class="col-sm-7">
+								<input type="text" class="form-control" id="inputFechaestado"
+									placeholder="Fecha Estado"
+									ng-model="PremioSeleccionado.fechaestado" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-sm-offset-1 col-sm-10">
+								<input type="submit" class="btn btn-default pull-right"
+									value="Aceptar" />
+
+							</div>
+						</div>
+
+					</form>
+
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" tabindex="-1" role="dialog" id="EliminarModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">Confirmar Accion</h4>
+				</div>
+				<div class="modal-body">
+					<p>Confirma la eliminacion del registro seleccionado?</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					<button type="button" class="btn btn-primary" ng-click="eliminar()">Confirmar</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
+
+
+
+
+	<div th:include="fragments/footer :: footer"></div>
+	<script src="js/controller/PremioController.js"></script>
+	<script src="js/service/PremioService.js"></script>
+</body>
+</html>
