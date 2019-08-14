@@ -43,8 +43,14 @@ public class PremioService implements IGenericService<Premio, BigDecimal> {
 	}
 
 	@Override
-	public void remove(Premio entity) {
-		dao.delete(entity);
+	public void remove(BigDecimal id) {
+		Premio entity = this.find(id);
+
+		if (entity.getIdpremio() != null) {
+			dao.delete(entity);
+
+		}
+		
 
 	}
 

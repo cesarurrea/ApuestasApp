@@ -39,7 +39,7 @@ public class PremioController implements IGenericController<Premio, BigDecimal> 
 
 	@Override
 	public void remove(Premio entity) {
-		service.remove(entity);
+		service.remove(entity.getIdpremio());
 
 	}
 

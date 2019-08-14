@@ -12,6 +12,6 @@ public interface IGenericRestController<T, U> {
 
 	public abstract void create(T entity);
 
-	public abstract void delete(T entity);
+	public abstract void delete(U id);
 
 }

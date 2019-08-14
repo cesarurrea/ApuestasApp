@@ -33,8 +33,12 @@ public class ParametroService implements IGenericService<Parametro, String> {
 	}
 
 	@Override
-	public void remove(Parametro entity) {
-		dao.delete(entity);
+	public void remove(String id) {
+		Parametro parametro = this.find(id);
+		
+		if(parametro.getNombre() != null) {
+			dao.delete(parametro);			
+		}	
 
 	}
 

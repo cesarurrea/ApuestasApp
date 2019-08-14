@@ -58,9 +58,9 @@ public class ColillaRestController implements IGenericRestController<Colilla, Bi
 	}
 
 	@Override
-	@DeleteMapping(value = "/colilla", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void delete(@RequestBody Colilla entity) {
-		service.remove(entity);
+	@DeleteMapping(value = "/colilla/{id}")
+	public void delete(@PathVariable("id") BigDecimal id) {
+		service.remove(id);
 
 	}
 

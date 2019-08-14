@@ -58,9 +58,9 @@ public class SorteoRestController implements IGenericRestController<Sorteo, BigD
 	}
 
 	@Override
-	@DeleteMapping(value = "/sorteo", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void delete(@RequestBody Sorteo entity) {
-		service.remove(entity);
+	@DeleteMapping(value = "/sorteo/{id}")
+	public void delete(@PathVariable("id") BigDecimal id) {
+		service.remove(id);
 		
 	}
 

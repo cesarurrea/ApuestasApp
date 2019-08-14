@@ -34,8 +34,12 @@ public class ColillaService implements IGenericService<Colilla, BigDecimal> {
 	}
 
 	@Override
-	public void remove(Colilla entity) {
-		dao.delete(entity);
+	public void remove(BigDecimal id) {
+		Colilla colilla = this.find(id);
+		
+		if(colilla.getNrocolilla() != null) {
+			dao.delete(colilla);
+		}	
 		
 	}
 

@@ -34,9 +34,13 @@ public class SorteoService implements IGenericService<Sorteo, BigDecimal> {
 	}
 
 	@Override
-	public void remove(Sorteo entity) {
-		dao.delete(entity);
-
+	public void remove(BigDecimal id) {
+		Sorteo entity = this.find(id);
+		
+		if (entity.getIdsorteo() != null) {
+			dao.delete(entity);
+		}	
+		
 	}
 
 	@Override

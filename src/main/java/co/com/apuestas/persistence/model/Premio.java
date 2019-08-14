@@ -13,6 +13,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.ColumnResult;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,6 +23,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.SqlResultSetMapping;
 import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
@@ -52,8 +55,8 @@ public class Premio implements Serializable {
 	// @Max(value=?) @Min(value=?)//if you know range of your decimal fields
 	// consider using these annotations to enforce field validation
 	@Id
-	@Basic(optional = false)
-	@NotNull
+	@SequenceGenerator(name="PREMIO_PK", sequenceName="SEQ_PREMIO", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PREMIO_PK")
 	@Column(name = "IDPREMIO")
 	private BigDecimal idpremio;
 	@Basic(optional = false)

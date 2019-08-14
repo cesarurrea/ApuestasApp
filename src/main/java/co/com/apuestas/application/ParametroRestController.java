@@ -56,9 +56,9 @@ public class ParametroRestController implements IGenericRestController<Parametro
 	}
 
 	@Override
-	@DeleteMapping(value = "/parametro", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void delete(@RequestBody Parametro entity) {
-		service.remove(entity);
+	@DeleteMapping(value = "/parametro/{id}")
+	public void delete(@PathVariable("id") String id) {
+		service.remove(id);
 		
 	}
 
